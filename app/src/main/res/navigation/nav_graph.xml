@@ -10,7 +10,22 @@
         android:name="id.phephen.todoapps.ui.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/fragment_home" >
-
+        <action
+            android:id="@+id/action_homeFragment_to_detailTodoFragment"
+            app:destination="@+id/detailTodoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailTodoFragment"
+        android:name="id.phephen.todoapps.ui.detail.DetailToDoFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_detail_to_do" >
+        <argument
+            android:name="todo"
+            app:argType="id.phephen.todoapps.data.model.Todo"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 
     <fragment

@@ -17,6 +17,7 @@ import javax.inject.Singleton
  * Created by Phephen on 23/07/2022.
  */
 
+private const val TAG = "PrefManager"
 enum class SortOrder { BY_NAME }
 data class FilterPref(val sortOrder: SortOrder)
 
@@ -35,7 +36,7 @@ class PrefManager @Inject constructor(@ApplicationContext context: Context) {
         }
         .map { preeef ->
             val sortOrder = SortOrder.valueOf(
-                preeef[PreferencesKeys.SORT_ORDER] ?: ""
+                preeef[PreferencesKeys.SORT_ORDER] ?: SortOrder.BY_NAME.name
             )
 
             FilterPref(sortOrder)

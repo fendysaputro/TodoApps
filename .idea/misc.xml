@@ -3,10 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/drawable/background_indicator.xml" value="0.1" />
+        <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/drawable/circle_white_bg.xml" value="0.1" />
+        <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/drawable/color_blob.xml" value="0.1" />
+        <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/drawable/rounded_corner.xml" value="0.1" />
         <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/layout/color_spinner_bg.xml" value="0.1" />
+        <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/layout/color_spinner_item.xml" value="0.1" />
         <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/layout/fragment_detail_to_do.xml" value="0.1" />
         <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/layout/fragment_weather.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/layout/item_color.xml" value="0.1" />
+        <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/layout/todo_item.xml" value="0.1" />
         <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/menu/item_menu_home.xml" value="0.1" />
         <entry key="..\:/Users/62856/AndroidStudioProjects/BELAJAR/TodoApps/app/src/main/res/menu/navigation_menu.xml" value="0.1" />
       </map>

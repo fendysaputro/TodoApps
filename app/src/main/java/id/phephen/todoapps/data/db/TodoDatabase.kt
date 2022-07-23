@@ -16,7 +16,7 @@ import javax.inject.Provider
  * Created by Phephen on 23/07/2022.
  */
 
-@Database(entities = [Todo::class], version = 1)
+@Database(entities = [Todo::class], version = 6)
 abstract class TodoDatabase : RoomDatabase() {
 
     abstract fun getTodoDao(): TodoDao
@@ -31,32 +31,12 @@ abstract class TodoDatabase : RoomDatabase() {
             val dao = database.get().getTodoDao()
 
             applicationScope.launch {
-                dao.insertTodo(Todo(1, "Create db", "description", "content", "#FFFFFFF"))
-                dao.insertTodo(Todo(2, "Create retrofit", "description", "content", "#00FFFFFFF"))
-                dao.insertTodo(Todo(3, "Create mvvm", "description", "content", "#FFFFFFF"))
-                dao.insertTodo(Todo(4, "Create di", "description", "content", "#FFFFFFF"))
+                dao.insertTodo(Todo("Create db", "description",  "#FFBB86FC", important = true))
+                dao.insertTodo(Todo("Create retrofit", "description",  "#FF6200EE"))
+                dao.insertTodo(Todo("Create mvvm", "description",  "#FF03DAC5", important = true))
+                dao.insertTodo(Todo("Create di", "description",  "#FF018786"))
             }
 
         }
     }
-
-//    companion object {
-//        @Volatile
-//        private var instance: TodoDatabase? = null
-//        private val LOCK = Any()
-//
-//        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
-//            instance ?: createDatabase(context).also {
-//                instance = it
-//            }
-//        }
-//
-//        private fun createDatabase(context: Context) = Room.databaseBuilder(
-//            context.applicationContext,
-//            TodoDatabase::class.java,
-//            "todo_db"
-//        ).build()
-//
-//    }
-
 }
