@@ -12,9 +12,7 @@ import java.io.File
 object Networking {
 
     fun create(
-        context: Context,
         baseUrl: String,
-        cacheDir: File,
         cacheSize: Long,
     ): Retrofit {
         return Retrofit.Builder()
