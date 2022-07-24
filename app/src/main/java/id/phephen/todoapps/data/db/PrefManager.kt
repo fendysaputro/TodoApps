@@ -19,9 +19,7 @@ import javax.inject.Singleton
 
 private const val TAG = "PrefManager"
 enum class SortOrder { BY_NAME }
-enum class FilterBy { IMPORTANT }
-data class FilterPref(val sortOrder: SortOrder)
-data class FilterData(val filterBy: FilterBy)
+data class FilterPref(val sortOrder: SortOrder, val showImportant: Boolean, val colorName: String)
 
 @Singleton
 class PrefManager @Inject constructor(@ApplicationContext context: Context) {
@@ -40,8 +38,11 @@ class PrefManager @Inject constructor(@ApplicationContext context: Context) {
             val sortOrder = SortOrder.valueOf(
                 preeef[PreferencesKeys.SORT_ORDER] ?: SortOrder.BY_NAME.name
             )
+            val showImportant = preeef[PreferencesKeys.IMPORTANT] ?: false
 
-            FilterPref(sortOrder)
+            val colorName = preeef[PreferencesKeys.COLOR_NAME] ?: "White"
+
+            FilterPref(sortOrder, showImportant, colorName)
         }
 
     val filterFlow = dataStore.data
@@ -52,19 +53,34 @@ class PrefManager @Inject constructor(@ApplicationContext context: Context) {
                 throw e
             }
         }.map { filterPrefff ->
-            val filterBy = FilterBy.IMPORTANT
-            FilterData(filterBy)
+            val sortOrder = SortOrder.valueOf(
+                filterPrefff[PreferencesKeys.SORT_ORDER] ?: SortOrder.BY_NAME.name
+            )
+            val filterBy = filterPrefff[PreferencesKeys.IMPORTANT] ?: false
+            val colorName = filterPrefff[PreferencesKeys.COLOR_NAME] ?: "White"
+            FilterPref(sortOrder, filterBy, colorName)
         }
 
-    suspend fun updateSortOrder(sortOrder: SortOrder){
-        dataStore.edit { preferences ->
-            preferences[PreferencesKeys.SORT_ORDER] = sortOrder.name
+    val filterColorFlow = dataStore.data
+        .catch { e ->
+            if (e is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw e
+            }
+        }.map { filterColorPrefff ->
+            val sortOrder = SortOrder.valueOf(
+                filterColorPrefff[PreferencesKeys.SORT_ORDER] ?: SortOrder.BY_NAME.name
+            )
+            val filterBy = filterColorPrefff[PreferencesKeys.IMPORTANT] ?: false
+            val colorName = filterColorPrefff[PreferencesKeys.COLOR_NAME] ?: "White"
+            FilterPref(sortOrder, filterBy, colorName)
         }
-    }
-
 
     private object PreferencesKeys {
         val SORT_ORDER = preferencesKey<String>("sort_order")
+        val IMPORTANT = preferencesKey<Boolean>("important")
+        val COLOR_NAME = preferencesKey<String>("color_name")
     }
 
 }

@@ -40,6 +40,12 @@ class DetailToDoViewModel @ViewModelInject constructor(
             state.set("todoColor", value)
         }
 
+    var todoColorName = state.get<String>("todoColorName") ?: todo?.colorName ?: ""
+        set(value) {
+            field = value
+            state.set("todoColorName", value)
+        }
+
     var todoImportance = state.get<Boolean>("todoImportance") ?: todo?.important
         set(value) {
             field = value
@@ -55,10 +61,20 @@ class DetailToDoViewModel @ViewModelInject constructor(
             return
         }
         if (todo != null) {
-            val updateTodo = todo.copy(title = todoTitle, important = todoImportance)
+            val updateTodo = todo.copy(
+                title = todoTitle, description = todoDesc,
+                color = todoColor,
+                colorName = todoColorName, important = todoImportance
+            )
             updateTodo(updateTodo)
         } else {
-            val newTodo = Todo(title = todoTitle, description = todoDesc, color = todoColor, important = todoImportance)
+            val newTodo = Todo(
+                title = todoTitle,
+                description = todoDesc,
+                color = todoColor,
+                colorName = todoColorName,
+                important = todoImportance
+            )
             createTodo(newTodo)
         }
     }

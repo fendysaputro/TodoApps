@@ -93,6 +93,7 @@ class DetailToDoFragment : Fragment(R.layout.fragment_detail_to_do) {
                 ) {
                     selectedColor = ColorList().basicColors()[position]
                     viewModel.todoColor = selectedColor.hexHash
+                    viewModel.todoColorName = selectedColor.name
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {}

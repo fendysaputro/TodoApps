@@ -16,6 +16,7 @@ data class Todo(
     var title: String? = null,
     var description: String? = null,
     var color: String? = null,
+    var colorName: String? = null,
     var important: Boolean? = null,
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,

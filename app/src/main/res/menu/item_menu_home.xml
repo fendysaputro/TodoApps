@@ -18,11 +18,10 @@
 
         <menu>
             <item
-                android:id="@+id/action_filter_by_color"
-                android:title="Filter by color" />
-            <item
                 android:id="@+id/action_filter_by_important"
-                android:title="Filter by importance" />
+                android:title="Show important only"
+                app:showAsAction="never"
+                android:checkable="true"/>
         </menu>
 
     </item>

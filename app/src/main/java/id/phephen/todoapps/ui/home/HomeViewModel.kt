@@ -1,5 +1,6 @@
 package id.phephen.todoapps.ui.home
 
+import android.util.Log
 import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
@@ -26,10 +27,16 @@ class HomeViewModel @ViewModelInject constructor(
 //    private val todoRepository: TodoRepository
 ) : ViewModel() {
 
+    val todoData = state.get<Todo>("todo")
+
     val searchQuery = state.getLiveData("searchQuery", "")
     val prefFlow = prefManager.prefFlow
 
+    val important = state.getLiveData("important", false)
     val filterFlow = prefManager.filterFlow
+
+    val colorName = state.getLiveData("colorName", "")
+    val filterColorFlow = prefManager.filterColorFlow
 
     private val todoEventChannel = Channel<TodoEvent>()
     val todosEvent = todoEventChannel.receiveAsFlow()
@@ -45,6 +52,40 @@ class HomeViewModel @ViewModelInject constructor(
 
     val todo = todoFlow.asLiveData()
 
+    private val filterFlowData = combine(
+        important.asFlow(),
+        filterFlow
+    ) { import, fillt ->
+        Pair(import, fillt)
+    }.flatMapLatest { (import, fillt) ->
+        todoDao.getTodoByImportant(import, fillt.sortOrder)
+    }
+
+    val todoFilter = filterFlowData.asLiveData()
+
+    private val filterColorNameData = combine(
+        colorName.asFlow(),
+        filterColorFlow
+    ) { colorName, fillCol ->
+        Pair(colorName, fillCol)
+    }.flatMapLatest { (colorName, fillCol) ->
+        todoDao.getTodoListByColor(colorName)
+    }
+
+    val todoColorFilter = filterColorNameData.asLiveData()
+
+    var todoColor = state.get<String>("todoColor") ?: todoData?.color ?: ""
+        set(value) {
+            field = value
+            state.set("todoColor", value)
+        }
+
+    var todoColorName = state.get<String>("todoColorName") ?: todoData?.colorName ?: ""
+        set(value) {
+            field = value
+            state.set("todoColorName", value)
+        }
+
     fun onAddNewTodoClick() = viewModelScope.launch {
         todoEventChannel.send(TodoEvent.NavigateToAddTodoScreen)
     }
@@ -52,6 +93,7 @@ class HomeViewModel @ViewModelInject constructor(
     fun onTodoSelected(todo: Todo) = viewModelScope.launch {
         todoEventChannel.send(TodoEvent.NavigateToEditTodoScreen(todo))
     }
+
 
     fun onAddEditResult(result: Int) {
         when (result) {

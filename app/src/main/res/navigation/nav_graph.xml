@@ -32,6 +32,19 @@
         android:id="@+id/weatherFragment"
         android:name="id.phephen.todoapps.ui.weather.WeatherFragment"
         android:label="weather_fragment"
-        tools:layout="@layout/fragment_weather" />
-
+        tools:layout="@layout/fragment_weather" >
+        <action
+            android:id="@+id/action_weatherFragment_to_weatherDetailFragment"
+            app:destination="@+id/weatherDetailFragment">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/weatherDetailFragment"
+        android:name="id.phephen.todoapps.ui.detail_weather.WeatherDetailFragment"
+        android:label="fragment_weather_detail"
+        tools:layout="@layout/fragment_weather_detail" >
+        <argument
+            android:name="dateArg"
+            app:argType="integer" />
+    </fragment>
 </navigation>

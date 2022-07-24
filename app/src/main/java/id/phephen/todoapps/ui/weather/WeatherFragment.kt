@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import id.phephen.todoapps.R
 import id.phephen.todoapps.data.model.Weather
@@ -43,7 +45,8 @@ class WeatherFragment : Fragment(R.layout.fragment_weather) {
     }
 
     private fun onWeatherClick(weather: Weather) {
-        Toast.makeText(requireContext(), "This is callback", Toast.LENGTH_SHORT).show()
+        val action = WeatherFragmentDirections.actionWeatherFragmentToWeatherDetailFragment(weather.dt)
+        findNavController().navigate(action)
     }
 
 }
