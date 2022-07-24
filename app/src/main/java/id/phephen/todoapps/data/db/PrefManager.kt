@@ -19,7 +19,9 @@ import javax.inject.Singleton
 
 private const val TAG = "PrefManager"
 enum class SortOrder { BY_NAME }
+enum class FilterBy { IMPORTANT }
 data class FilterPref(val sortOrder: SortOrder)
+data class FilterData(val filterBy: FilterBy)
 
 @Singleton
 class PrefManager @Inject constructor(@ApplicationContext context: Context) {
@@ -40,6 +42,18 @@ class PrefManager @Inject constructor(@ApplicationContext context: Context) {
             )
 
             FilterPref(sortOrder)
+        }
+
+    val filterFlow = dataStore.data
+        .catch { e ->
+            if (e is IOException) {
+                emit(emptyPreferences())
+            } else {
+                throw e
+            }
+        }.map { filterPrefff ->
+            val filterBy = FilterBy.IMPORTANT
+            FilterData(filterBy)
         }
 
     suspend fun updateSortOrder(sortOrder: SortOrder){

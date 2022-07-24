@@ -29,6 +29,8 @@ class HomeViewModel @ViewModelInject constructor(
     val searchQuery = state.getLiveData("searchQuery", "")
     val prefFlow = prefManager.prefFlow
 
+    val filterFlow = prefManager.filterFlow
+
     private val todoEventChannel = Channel<TodoEvent>()
     val todosEvent = todoEventChannel.receiveAsFlow()
 
@@ -61,19 +63,6 @@ class HomeViewModel @ViewModelInject constructor(
     private fun showTodoSavedConfirmationMessage(text: String) = viewModelScope.launch {
         todoEventChannel.send(TodoEvent.ShowTodoSavedConfirmationMessage(text))
     }
-
-//    fun insertTodo(todo: Todo) = viewModelScope.launch {
-//        todoRepository.insertTodo(todo)
-//    }
-//
-//    fun updateTodo(todo: Todo) = viewModelScope.launch {
-//        todoRepository.updateTodo(todo)
-//    }
-//
-//    fun getAllTodo() : LiveData<List<Todo>>{
-//        return todoRepository.getAllTodo()
-//    }
-
 
     sealed class TodoEvent {
         object NavigateToAddTodoScreen : TodoEvent()

@@ -22,6 +22,6 @@ object Networking {
             .build()
     }
 
-    const val BASE_URL = "https://backend.portalsekolah.com/"
+    const val BASE_URL = "https://api.openweathermap.org/"
 
 }

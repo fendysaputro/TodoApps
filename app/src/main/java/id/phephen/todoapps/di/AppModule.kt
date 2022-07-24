@@ -10,9 +10,14 @@ import dagger.hilt.android.components.ApplicationComponent
 import id.phephen.todoapps.ToDoApplication
 import id.phephen.todoapps.data.db.TodoDatabase
 import id.phephen.todoapps.data.network.Networking
+import id.phephen.todoapps.data.remote.OpenWeatherApi
+import id.phephen.todoapps.data.remote.repository.WeatherRepositoryImpl
+import id.phephen.todoapps.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -44,13 +49,28 @@ object AppModule {
     @Singleton
     fun provideApplicationScope() = CoroutineScope(SupervisorJob())
 
+//    @Provides
+//    @Singleton
+//    fun provideRetrofit(): Retrofit =
+//        Networking.create(
+//            Networking.BASE_URL,
+//            10 * 1024 * 1024,
+//        )
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit =
-        Networking.create(
-            Networking.BASE_URL,
-            10 * 1024 * 1024,
-        )
+    fun provideOpenWeatherApi(): OpenWeatherApi {
+        return Retrofit.Builder()
+            .baseUrl(Networking.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWeatherRepository(api: OpenWeatherApi): WeatherRepository {
+        return WeatherRepositoryImpl(api)
+    }
 }
 
 @Retention(AnnotationRetention.RUNTIME)

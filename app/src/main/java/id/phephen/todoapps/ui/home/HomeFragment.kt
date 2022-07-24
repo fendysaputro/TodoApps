@@ -1,7 +1,6 @@
 package id.phephen.todoapps.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -17,7 +16,6 @@ import id.phephen.todoapps.data.model.Todo
 import id.phephen.todoapps.databinding.FragmentHomeBinding
 import id.phephen.todoapps.util.exhaustive
 import id.phephen.todoapps.util.onQueryTextChange
-import kotlinx.android.synthetic.main.fragment_home.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home), TodoAdapter.OnItemClickListener {
@@ -35,10 +33,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), TodoAdapter.OnItemClickLi
                 setHasFixedSize(true)
             }
         }
-
-//        fab_add_note.setOnClickListener {
-//            viewModel.onAddNewTodoClick()
-//        }
 
         setFragmentResultListener("add_edit_request") { _, bundle ->
             val result = bundle.getInt("add_edit_result")

@@ -30,6 +30,9 @@ interface TodoDao {
     @Query("SELECT * FROM todo_table WHERE title LIKE '%' || :searchQuery || '%' ORDER BY important DESC, title")
     fun getTodoSortByTitle(searchQuery: String): Flow<List<Todo>>
 
+    @Query("SELECT * FROM todo_table WHERE important IN (:important)")
+    fun getTodoFilterImportance(important: List<Boolean>): List<Todo>
+
     @Query("SELECT * FROM todo_table WHERE title LIKE :query")
     fun searchItem(query: String): LiveData<List<Todo>>
 
